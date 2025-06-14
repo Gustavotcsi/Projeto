@@ -1,4 +1,4 @@
-package com.ProjetoExtensao.Projeto;
+package com.ProjetoExtensao.Projeto.config;
 
 
 import io.swagger.v3.oas.models.OpenAPI;
