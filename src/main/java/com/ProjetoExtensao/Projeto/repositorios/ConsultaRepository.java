@@ -1,6 +1,5 @@
 package com.ProjetoExtensao.Projeto.repositorios;
 
-import com.ProjetoExtensao.Projeto.entidades.Consulta;
 import com.ProjetoExtensao.Projeto.entidades.Paciente;
 import com.ProjetoExtensao.Projeto.entidades.ProfissionalSaude;
 import org.springframework.data.jpa.repository.JpaRepository;
