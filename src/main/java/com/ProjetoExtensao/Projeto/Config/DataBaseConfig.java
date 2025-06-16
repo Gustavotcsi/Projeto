@@ -1,4 +1,4 @@
-package com.ProjetoExtensao.Projeto.Config;
+package com.ProjetoExtensao.Projeto.config;
 
 import com.ProjetoExtensao.Projeto.entidades.Consulta;
 import com.ProjetoExtensao.Projeto.entidades.Paciente;
