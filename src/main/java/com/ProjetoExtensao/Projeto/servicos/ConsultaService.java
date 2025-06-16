@@ -1,54 +1,37 @@
 package com.ProjetoExtensao.Projeto.servicos;
 
+import com.ProjetoExtensao.Projeto.infra.DateTimeFormatter;
 import com.ProjetoExtensao.Projeto.models.Consulta;
-import com.ProjetoExtensao.Projeto.repositorios.ConsultaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ProjetoExtensao.Projeto.models.Paciente;
+import com.ProjetoExtensao.Projeto.models.TipoConsulta;
+import com.ProjetoExtensao.Projeto.repositorios.ConsultaRepositorio;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Service
+@AllArgsConstructor
 public class ConsultaService {
+    private ConsultaRepositorio consultaRepositorio;
+    private ResponsavelService responsavelService;
+    private PacienteService pacienteService;
 
-    @Autowired
-    private ConsultaRepository consultaRepository;
-
-    public Consulta salvarConsulta(Consulta consulta) {
-        if (consulta.getDataHora() == null) {
-            throw new IllegalArgumentException("A data da consulta é obrigatória.");
-        }
-        if (consulta.getProfissionalResponsavel() == null) {
-            throw new IllegalArgumentException("Profissional de saúde é obrigatório.");
-        }
-        return consultaRepository.save(consulta);
+    public Consulta findConsultaByPaciente(Paciente paciente) {
+        return consultaRepositorio.findByPaciente(paciente).orElseThrow(() -> new RuntimeException("Consulta não encontrada"));
     }
 
-    public List<Consulta> listarConsultas() {
-        return consultaRepository.findAll();
-    }
+    public void salvarConsulta(String pacienteCpf, String data, String hora, String medicoNome, String tipoConsulta) {
+        Consulta consulta = new Consulta();
 
-    public Optional<Consulta> buscarConsultaPorId(Long id) {
-        return consultaRepository.findById(id);
-    }
+        consulta.setData(LocalDate.parse(data, DateTimeFormatter.DATE_TIME_FORMATTER));
+        consulta.setHora(LocalTime.parse(hora, DateTimeFormatter.TIME_FORMATTER));
+        consulta.setTipoConsulta(TipoConsulta.getType(tipoConsulta));
 
-    public Consulta atualizarConsulta(Long id, Consulta novaConsulta) {
-        return consultaRepository.findById(id).map(consultaExistente -> {
-            consultaExistente.setDataHora(novaConsulta.getDataHora());
-            consultaExistente.setProfissionalResponsavel(novaConsulta.getProfissionalResponsavel());
-            consultaExistente.setTipo(novaConsulta.getTipo());
-            consultaExistente.setMotivoConsulta(novaConsulta.getMotivoConsulta());
-            consultaExistente.setDiagnosticoCID10(novaConsulta.getDiagnosticoCID10());
-            consultaExistente.setAnotacoesProfissional(novaConsulta.getAnotacoesProfissional());
-            consultaExistente.setEncaminhamentos(novaConsulta.getEncaminhamentos());
-            return consultaRepository.save(consultaExistente);
-        }).orElseThrow(() -> new RuntimeException("Consulta não encontrada com o ID: " + id));
-    }
+        consulta.setPaciente(pacienteService.findPacienteByCpf(pacienteCpf));
+        consulta.setResponsavelSaude(responsavelService.findResponsavelByNome(medicoNome));
 
-    public void deletarConsulta(Long id) {
-        if (!consultaRepository.existsById(id)) {
-            throw new RuntimeException("Consulta não encontrada com o ID: " + id);
-        }
-        consultaRepository.deleteById(id);
+        consultaRepositorio.save(consulta);
     }
 }

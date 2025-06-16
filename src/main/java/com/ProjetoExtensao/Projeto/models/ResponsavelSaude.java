@@ -12,13 +12,13 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class ProfissionalSaude {
+public class ResponsavelSaude {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String username;
+    private String email;
 
     @Column(nullable = false)
     private String senha;
@@ -27,19 +27,12 @@ public class ProfissionalSaude {
     private String nomeCompleto;
 
     @OneToMany(mappedBy = "responsavelSaude")
-    private List<Paciente> pacientes;
-
-    @OneToMany(mappedBy = "responsavelSaude")
     private List<Consulta> consultas;
 
-    public ProfissionalSaude(String username, String senha, String nomeCompleto) {
-        this.username = username;
+    public ResponsavelSaude(String email, String senha, String nomeCompleto) {
+        this.email = email;
         this.senha = senha;
         this.nomeCompleto = nomeCompleto;
-    }
-
-    public void addPaciente(Paciente paciente) {
-        pacientes.add(paciente);
     }
 
     public void addConsulta(Consulta consulta) {

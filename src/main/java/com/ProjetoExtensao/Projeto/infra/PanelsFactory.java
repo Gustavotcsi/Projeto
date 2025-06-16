@@ -1,7 +1,7 @@
 package com.ProjetoExtensao.Projeto.infra;
 
-import com.ProjetoExtensao.Projeto.infra.IconManager;
-import lombok.AllArgsConstructor;
+import com.ProjetoExtensao.Projeto.servicos.NavigationService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -11,16 +11,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
-@AllArgsConstructor
 public class PanelsFactory extends JFrame {
     private IconManager iconManager;
+    private NavigationService navigationService;
 
-    public JPanel createHeaderPanel() {
+    private JButton refreshButton;
+    private JButton adminButton;
+    private JButton exitButton;
+
+    public PanelsFactory(IconManager iconManager, @Lazy NavigationService navigationService) {
+        this.iconManager = iconManager;
+        this.navigationService = navigationService;
+    }
+
+    public JPanel getHeaderPanel() {
         JPanel headerPanel = new JPanel(new BorderLayout(10, 10));
         headerPanel.setBackground(Color.WHITE);
         headerPanel.setBorder(new EmptyBorder(15, 25, 15, 25));
 
-        ImageIcon logoIcon = iconManager.createScaledIcon("/assets/logo.png", 50, 50);
+        ImageIcon logoIcon = iconManager.createScaledIcon("/images/logo.png", 50, 50);
         JLabel logoLabel = new JLabel(logoIcon);
 
         JPanel companyInfoPanel = new JPanel();
@@ -46,23 +55,25 @@ public class PanelsFactory extends JFrame {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         buttonsPanel.setOpaque(false);
 
-        JButton adminButton = new JButton("Administrador Painel", iconManager.createIcon("/assets/admin.png"));
-        JButton exitButton = new JButton("Sair", iconManager.createIcon("/assets/exit.png"));
-        // JButton refreshButton = new JButton(createIcon("/assets/refresh.png"));
+        adminButton = new JButton("Administrador Painel", iconManager.createScaledIcon("/images/admin.png", 15, 15));
+        exitButton = new JButton("Sair", iconManager.createScaledIcon("/images/exit.png", 15, 15));
+        refreshButton = new JButton("Atualizar", iconManager.createScaledIcon("/images/refresh.png", 20, 20));
 
-        for (JButton btn : new JButton[]{adminButton, exitButton}) {
+        for (JButton btn : new JButton[]{adminButton, exitButton, refreshButton}) {
             btn.setBackground(new Color(Cores.COR_RODAPE.getRGB()));
             btn.setForeground(Color.WHITE);
             btn.setFocusPainted(false);
             btn.setBorder(new EmptyBorder(8, 12, 8, 12));
-//            if (btn == refreshButton) {
-//                btn.setBorder(new EmptyBorder(8, 8, 8, 8));
-//            }
+            if (btn == refreshButton) {
+                btn.setBorder(new EmptyBorder(8, 8, 8, 8));
+            }
         }
+
+        exitButton.addActionListener(e -> navigationService.abrirTelaLogin());
 
         buttonsPanel.add(adminButton);
         buttonsPanel.add(exitButton);
-        // buttonsPanel.add(refreshButton);
+        buttonsPanel.add(refreshButton);
 
         headerPanel.add(leftPanel, BorderLayout.WEST);
         headerPanel.add(buttonsPanel, BorderLayout.EAST);
@@ -70,7 +81,14 @@ public class PanelsFactory extends JFrame {
         return headerPanel;
     }
 
-    public JPanel createFooterPanel() {
+    public JButton getRefreshButton() {
+        return refreshButton;
+    }
+    public JButton getAdminButton(){
+        return adminButton;
+    }
+
+    public JPanel getFooterPanel() {
         JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         footerPanel.setBackground(Cores.COR_RODAPE);
         footerPanel.setPreferredSize(new Dimension(getWidth(), 40));

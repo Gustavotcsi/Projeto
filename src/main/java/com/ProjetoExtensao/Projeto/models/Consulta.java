@@ -22,7 +22,7 @@ public class Consulta {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
-    @DateTimeFormat(pattern = "HH:mm")
+    @Column(nullable = false, columnDefinition = "TIME")
     private LocalTime hora;
 
     @Enumerated(EnumType.STRING)
@@ -30,32 +30,17 @@ public class Consulta {
 
     @ManyToOne
     @JoinColumn(name = "responsavel_id", nullable = false)
-    private ProfissionalSaude profissionalSaude;
+    private ResponsavelSaude responsavelSaude;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
 
-    public Consulta(LocalDate data, LocalTime hora, String tipoConsulta, ProfissionalSaude profissionalSaude, Paciente paciente) {
+    public Consulta(LocalDate data, LocalTime hora, String tipoConsulta, ResponsavelSaude responsavelSaude, Paciente paciente) {
         this.data = data;
         this.hora = hora;
         this.tipoConsulta = TipoConsulta.getType(tipoConsulta);
-        this.profissionalSaude = profissionalSaude;
+        this.responsavelSaude = responsavelSaude;
         this.paciente = paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-    }
-
-    public boolean getDataHora() {
-    }
-
-    public boolean getProfissionalResponsavel() {
-    }
-
-    public void setDataHora(boolean dataHora) {
-    }
-
-    public void setProfissionalResponsavel(boolean profissionalResponsavel) {
     }
 }
