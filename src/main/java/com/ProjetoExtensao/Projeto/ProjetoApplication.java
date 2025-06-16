@@ -7,7 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProjetoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProjetoApplication.class, args);
-	}
+		System.setProperty("java.awt.headless", "false");
 
+		ApplicationContext context = SpringApplication.run(ProjetoApplication.class, args);
+
+		NavigationService navigationService = context.getBean(NavigationService.class);
+		navigationService.abrirTelaLogin();
+	}
 }
