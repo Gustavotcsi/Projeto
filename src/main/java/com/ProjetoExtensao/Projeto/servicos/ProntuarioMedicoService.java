@@ -1,6 +1,6 @@
 package com.ProjetoExtensao.Projeto.servicos;
 
-import com.ProjetoExtensao.Projeto.entidades.*;
+import com.ProjetoExtensao.Projeto.models.*;
 import com.ProjetoExtensao.Projeto.repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

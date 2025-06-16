@@ -1,4 +1,4 @@
-package com.ProjetoExtensao.Projeto.entidades;
+package com.ProjetoExtensao.Projeto.models;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class ResponsavelSaude {
+public class ProfissionalSaude {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,7 +32,7 @@ public class ResponsavelSaude {
     @OneToMany(mappedBy = "responsavelSaude")
     private List<Consulta> consultas;
 
-    public ResponsavelSaude(String username, String senha, String nomeCompleto) {
+    public ProfissionalSaude(String username, String senha, String nomeCompleto) {
         this.username = username;
         this.senha = senha;
         this.nomeCompleto = nomeCompleto;

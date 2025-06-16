@@ -1,6 +1,6 @@
 package com.ProjetoExtensao.Projeto.repositorios;
 
-import com.ProjetoExtensao.Projeto.entidades.ProfissionalSaude;
+import com.ProjetoExtensao.Projeto.models.ProfissionalSaude;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

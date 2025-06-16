@@ -1,5 +1,6 @@
 package com.ProjetoExtensao.Projeto.servicos;
 
+import com.ProjetoExtensao.Projeto.models.Consulta;
 import com.ProjetoExtensao.Projeto.repositorios.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

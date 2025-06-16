@@ -1,4 +1,4 @@
-package com.ProjetoExtensao.Projeto.entidades;
+package com.ProjetoExtensao.Projeto.models;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "pacientes")
@@ -38,24 +39,26 @@ public class Paciente {
     @Column(nullable = false)
     private LocalDate dataEntrada;
 
+
     @ManyToOne
     @JoinColumn(name = "responsavel_id")
     private ProfissionalSaude profissionalSaude;
 
-    @OneToMany(mappedBy = "paciente")
-    private List<Consulta> consultas;
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Consulta> consultas = new ArrayList<>();
 
-    public Paciente(String nomeCompleto, String cpf, LocalDate dataNascimento, String nomeMae, String cartaoSUS, LocalDate dataEntrada, ResponsavelSaude responsavelSaude) {
+    public Paciente(String nomeCompleto, String cpf, LocalDate dataNascimento, String nomeMae, String cartaoSUS, LocalDate dataEntrada, ProfissionalSaude profissionalSaude) {
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.nomeMae = nomeMae;
         this.cartaoSUS = cartaoSUS;
         this.dataEntrada = dataEntrada;
-        this.responsavelSaude = responsavelSaude;
+        this.profissionalSaude = profissionalSaude;
     }
 
     public void addConsulta(Consulta consulta) {
-        consultas.add(consulta);
+        this.consultas.add(consulta);
+        consulta.setPaciente(this);
     }
 }

@@ -1,8 +1,8 @@
 package com.ProjetoExtensao.Projeto.config;
 
-import com.ProjetoExtensao.Projeto.entidades.Consulta;
-import com.ProjetoExtensao.Projeto.entidades.Paciente;
-import com.ProjetoExtensao.Projeto.entidades.ResponsavelSaude;
+import com.ProjetoExtensao.Projeto.models.Consulta;
+import com.ProjetoExtensao.Projeto.models.Paciente;
+import com.ProjetoExtensao.Projeto.models.ProfissionalSaude;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,12 +25,12 @@ public class DatabaseConfig {
             if (!isTablePopulated("pacientes")) {
                 System.out.println("Preenchendo o banco de dados...");
 
-                ResponsavelSaude responsavelSaude = responsavelRepositorio.save(new ResponsavelSaude("maria", "123", "Dr. Maria"));
+                ProfissionalSaude profissionalSaude = responsavelRepositorio.save(new ProfissionalSaude("maria", "123", "Dr. Maria"));
 
                 Paciente paciente = pacienteRepositorio.save(new Paciente("João", "99999999999", LocalDate.parse("1970-03-12"),
-                        "Josefina", "999999", LocalDate.now(), responsavelSaude));
+                        "Josefina", "999999", LocalDate.now(), profissionalSaude));
 
-                consultaRepositorio.save(new Consulta(LocalDate.now(), LocalTime.now(), "rotina", responsavelSaude, paciente));
+                consultaRepositorio.save(new Consulta(LocalDate.now(), LocalTime.now(), "rotina", profissionalSaude, paciente));
 
                 System.out.println("Preenchimento do banco de dados concluído.");
             } else {

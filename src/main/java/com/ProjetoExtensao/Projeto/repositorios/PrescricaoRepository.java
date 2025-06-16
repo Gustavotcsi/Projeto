@@ -1,7 +1,7 @@
 package com.ProjetoExtensao.Projeto.repositorios;
 
-import com.ProjetoExtensao.Projeto.entidades.Prescricao;
-import com.ProjetoExtensao.Projeto.entidades.ProntuarioMedico;
+import com.ProjetoExtensao.Projeto.models.Prescricao;
+import com.ProjetoExtensao.Projeto.models.ProntuarioMedico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

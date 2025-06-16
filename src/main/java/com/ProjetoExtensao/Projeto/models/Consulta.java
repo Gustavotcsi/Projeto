@@ -1,4 +1,4 @@
-package com.ProjetoExtensao.Projeto.entidades;
+package com.ProjetoExtensao.Projeto.models;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,17 +30,32 @@ public class Consulta {
 
     @ManyToOne
     @JoinColumn(name = "responsavel_id", nullable = false)
-    private ResponsavelSaude responsavelSaude;
+    private ProfissionalSaude profissionalSaude;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
 
-    public Consulta(LocalDate data, LocalTime hora, String tipoConsulta, ResponsavelSaude responsavelSaude, Paciente paciente) {
+    public Consulta(LocalDate data, LocalTime hora, String tipoConsulta, ProfissionalSaude profissionalSaude, Paciente paciente) {
         this.data = data;
         this.hora = hora;
         this.tipoConsulta = TipoConsulta.getType(tipoConsulta);
-        this.responsavelSaude = responsavelSaude;
+        this.profissionalSaude = profissionalSaude;
         this.paciente = paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+    }
+
+    public boolean getDataHora() {
+    }
+
+    public boolean getProfissionalResponsavel() {
+    }
+
+    public void setDataHora(boolean dataHora) {
+    }
+
+    public void setProfissionalResponsavel(boolean profissionalResponsavel) {
     }
 }

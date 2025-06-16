@@ -1,6 +1,6 @@
 package com.ProjetoExtensao.Projeto.servicos;
 
-import com.ProjetoExtensao.Projeto.entidades.ProfissionalSaude;
+import com.ProjetoExtensao.Projeto.models.ProfissionalSaude;
 import com.ProjetoExtensao.Projeto.repositorios.ProfissionalSaudeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

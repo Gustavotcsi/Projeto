@@ -1,4 +1,4 @@
-package com.ProjetoExtensao.Projeto.entidades;
+package com.ProjetoExtensao.Projeto.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;

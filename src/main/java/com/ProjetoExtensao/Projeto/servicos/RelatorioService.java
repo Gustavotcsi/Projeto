@@ -1,8 +1,8 @@
 package com.ProjetoExtensao.Projeto.servicos;
 
-import com.ProjetoExtensao.Projeto.entidades.Paciente;
-import com.ProjetoExtensao.Projeto.entidades.ProntuarioMedico;
-import com.ProjetoExtensao.Projeto.entidades.EventoSentinela;
+import com.ProjetoExtensao.Projeto.models.Paciente;
+import com.ProjetoExtensao.Projeto.models.ProntuarioMedico;
+import com.ProjetoExtensao.Projeto.models.EventoSentinela;
 import com.ProjetoExtensao.Projeto.repositorios.PacienteRepository;
 import com.ProjetoExtensao.Projeto.repositorios.ProntuarioMedicoRepository;
 import com.ProjetoExtensao.Projeto.repositorios.EventoSentinelaRepository;
@@ -10,7 +10,6 @@ import com.ProjetoExtensao.Projeto.repositorios.EventoSentinelaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
