@@ -67,13 +67,6 @@ public class TelaConsultas extends JFrame {
         add(headerPanel, BorderLayout.NORTH);
         this.refreshButton = panelsFactory.getRefreshButton();
 
-        JButton adminButton = panelsFactory.getAdminButton();
-
-        adminButton.addActionListener(e -> {
-            navigationService.abrirTelaGeral();
-            dispose();
-        });
-
         // RODAPÉ
         JPanel footerPanel = panelsFactory.getFooterPanel();
         add(footerPanel, BorderLayout.SOUTH);

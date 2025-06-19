@@ -69,7 +69,24 @@ public class PanelsFactory extends JFrame {
             }
         }
 
-        exitButton.addActionListener(e -> navigationService.abrirTelaLogin());
+        exitButton.addActionListener(e -> {
+            navigationService.abrirTelaLogin();
+
+            Window janelaAtual = SwingUtilities.getWindowAncestor((java.awt.Component) e.getSource());
+            if (janelaAtual != null) {
+                janelaAtual.dispose();;
+            }
+        });
+
+        adminButton.addActionListener(e -> {
+            navigationService.abrirTelaGeral();
+
+            Window janelaAtual = SwingUtilities.getWindowAncestor((java.awt.Component) e.getSource());
+            if (janelaAtual != null) {
+                janelaAtual.dispose();
+            }
+        });
+
 
         buttonsPanel.add(adminButton);
         buttonsPanel.add(exitButton);
